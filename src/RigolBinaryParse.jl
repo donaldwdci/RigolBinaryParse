@@ -1,6 +1,6 @@
 module RigolBinaryParse
 
-export getWaveform, getWaveformDataFrame, getWaveformProperties
+export getWaveform, getWaveformDataFrame, getWaveformProperties, getUnits
 
 using DataFrames
 
@@ -61,7 +61,7 @@ end
 
 
 
-
+# Getting Units
 function getUnits(units::Int32)::String
 
     if units == 0
@@ -83,6 +83,27 @@ function getUnits(units::Int32)::String
     end
 
 end
+
+function getUnits(waveform::WaveformData)::Tuple{String,String}
+
+    return (getUnits(waveform.header.x_units), getUnits(waveform.header.y_units))
+
+end
+
+function getUnits(waveform::Waveform)::Vector
+
+    vector_length = length(waveform.waveform)
+    units = Vector{Tuple{String,String}}(undef, vector_length)
+
+    for i in eachindex(waveform.waveform)
+        units[i] = getUnits(waveform.waveform[i])
+    end
+
+    return units
+
+end
+
+
 
 function getWaveformType(waveformType::Int32)::String
 
