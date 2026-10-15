@@ -81,36 +81,35 @@ N/A
 `{julia}function getWaveformProperties(Waveform)::DataFrame`
 `{julia}function getWaveformDataFrame(Waveform)::DataFrame`
 # Waveform Data Structure
-```mermaid-next
-treeView-beta
-"header"
-	"cookie"
-	"version"
-	"filesize"
-	"waveform_count"
-"waveform[]"
-	"data"
-	"header"
-		"header_size"
-		"waveform_type"
-		"waveform_buffer_count"
-		"point_count"
-		"count"
-		"x_display_range"
-		"x_display_origin"
-		"x_increment"
-		"x_origin"
-		"x_units"
-		"y_units"
-		"date"
-		"time"
-		"model"
-		"channel_name"
-	"dataHeader"
-		"header_size"
-		"buffer_type"
-		"bytes_per_point"
-		"buffer_size"
+```text
+header
+    cookie
+	version
+	filesize
+	waveform_count
+waveform[]
+	data
+	header
+		header_size
+		waveform_type
+		waveform_buffer_count
+		point_count
+		count
+		x_display_range
+		x_display_origin
+		x_increment
+		x_origin
+		x_units
+		y_units
+		date
+		time
+		model
+		channel_name
+	dataHeader
+		header_size
+		buffer_type
+		bytes_per_point
+		buffer_size
 ```
 # Examples
 ```julia
