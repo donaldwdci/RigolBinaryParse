@@ -1,9 +1,13 @@
 name = "RigolBinaryParse"
 uuid = "bb17f81d-3dec-4093-8676-49f7e3ce67a6"
-authors = ["Donald Williams Jr. <donaldw@dcionline.com>"]
 version = "1.0.0-DEV"
+authors = ["Donald Williams Jr. <donaldw@dcionline.com>"]
+
+[deps]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 
 [compat]
+DataFrames = "1.8.2"
 julia = "1.12"
 
 [extras]
