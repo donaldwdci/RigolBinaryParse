@@ -168,4 +168,10 @@ units::Tuple{String, String} = getUnits(wave_struct.waveform[1])
 
 # get units for all channels (outputs a vector of tuples of strings)
 units::Vector{Tuple{String, String}} = getUnits(wave_struct);
+
+
+# DOWNSAMPLING DATA FOR PLOTTING
+y::Vector = downsample(wave_struct.waveform[1].y)
+(x,y)::Tuple{Vector,Vector} = downsample(wave_struct.waveform[1])
+
 ```
