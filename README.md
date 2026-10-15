@@ -148,4 +148,13 @@ wave_dataframe = getWaveformDataFrame(wave_struct)
 
 # get dataframe format for properties
 wave_properties = getWaveformProperties(wave_struct)
+
+# get units of a specific channel and axis (outputs a string)
+getUnits(wave_struct.waveform[1].header.y_units)
+
+# get units of a specific channel (outputs a tuple of strings)
+getUnits(wave_struct.waveform[1])
+
+# get units for all channels (outputs a vector of tuples of strings)
+getUnits(wave_struct);
 ```
