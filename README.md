@@ -55,7 +55,8 @@ end
 ```julia fold:"WaveformData"
 struct WaveformData
 
-    data::Vector
+    x::Vector
+	y::Vector
     header::WaveformHeader
     dataHeader::WaveformDataHeader
    
@@ -108,7 +109,8 @@ header
 	filesize
 	waveform_count
 waveform[]
-	data[]
+	x[]
+	y[]
 	header
 		header_size
 		waveform_type

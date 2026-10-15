@@ -45,7 +45,8 @@ end
 
 struct WaveformData
 
-    data::Vector
+    x::Vector
+    y::Vector
     header::WaveformHeader
     dataHeader::WaveformDataHeader
 
@@ -260,18 +261,15 @@ end
 
 function getWaveformData(binData::Vector)::WaveformData
 
-    #println(length(binData))
-
     waveformHeader = getWaveformHeader(binData[1:140])
     waveformDataHeader = getWaveformDataHeader(binData[141:152])
 
-    #println(waveformDataHeader.buffer_size)
+    y_data_points = getWaveformDataPoints(binData[153:(152+waveformDataHeader.buffer_size)], waveformDataHeader)
 
-    #println(152 + waveformDataHeader.buffer_size)
+    x_data_points = (0-waveformHeader.x_display_origin):waveformHeader.x_increment:((waveformHeader.x_increment*(waveformHeader.point_count-1))-waveformHeader.x_display_origin)
 
-    waveformDataPoints = getWaveformDataPoints(binData[153:(152+waveformDataHeader.buffer_size)], waveformDataHeader)
 
-    return WaveformData(waveformDataPoints, waveformHeader, waveformDataHeader)
+    return WaveformData(x_data_points, y_data_points, waveformHeader, waveformDataHeader)
 
 end
 
@@ -361,14 +359,14 @@ end
 
 function getWaveformDataFrame(waveform::Waveform)::DataFrame
 
-    t = 0:waveform.waveform[1].header.x_increment:(waveform.waveform[1].header.x_increment*(waveform.waveform[1].header.point_count-1))
+    #t = 0:waveform.waveform[1].header.x_increment:(waveform.waveform[1].header.x_increment*(waveform.waveform[1].header.point_count-1))
 
-    df = DataFrame(time=t, ch1=waveform.waveform[1].data)
+    df = DataFrame(time=waveform.waveform[1].x, ch1=waveform.waveform[1].y)
 
     if waveform.header.waveform_count > 1
         for i in 2:waveform.header.waveform_count
             colname = "ch$i"
-            df[!, colname] = waveform.waveform[i].data
+            df[!, colname] = waveform.waveform[i].y
         end
     end
 
