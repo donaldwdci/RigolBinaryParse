@@ -1,8 +1,9 @@
 module RigolBinaryParse
 
-export getWaveform, getWaveformDataFrame, getWaveformProperties, getUnits, downsample
+export getWaveform, getWaveformDataFrame, getWaveformProperties, getUnits, downsample, plot
 
 using DataFrames
+using Plots
 
 struct FileHeader
 
@@ -400,6 +401,33 @@ function downsample(waveform::Waveform, max_length::Int=5000)::Vector
     end
 
     return result
+
+end
+
+
+
+# Basic Quick Plots
+
+function plot(wave::WaveformData)::Plots.Plot
+
+    (x, y) = downsample(wave)
+    (x_units, y_units) = getUnits(wave)
+
+    return Plots.plot(x, y, title=wave.header.channel_name, xlabel=x_units, ylabel=y_units)
+
+end
+
+function plot(wave::Waveform)::Plots.Plot
+
+    plt::Vector{Plots.Plot}=[]
+
+    for i in eachindex(wave.waveform)
+
+        push!(plt, plot(wave.waveform[i]))
+
+    end
+
+    return Plots.plot(plt...)
 
 end
 

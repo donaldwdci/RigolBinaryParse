@@ -5,9 +5,11 @@ authors = ["Donald Williams Jr. <donaldw@dcionline.com>"]
 
 [deps]
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 
 [compat]
 DataFrames = "1.8.2"
+Plots = "1.41.7"
 julia = "1.12"
 
 [extras]
