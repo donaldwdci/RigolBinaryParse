@@ -67,19 +67,19 @@ end
 N/A
 # Functions
 ## Private
-`{julia}function getUnits(Int32)::String`
-`{julia}function getWaveformType(Int32)::String`
-`{julia}function getBufferType(Int16)::String`
-`{julia}function getFileHeader(Vector)::FileHeader`
-`{julia}function getWaveformHeader(Vector)::WaveformHeader`
-`{julia}function getWaveformDataHeader(Vector)::WaveformDataHeader`
-`{julia}function getWaveformDataPoints(Vector, WaveformDataHeader)::Vector`
-`{julia}function getWaveformData(Vector)::WaveformData`
+`function getUnits(Int32)::String`
+`function getWaveformType(Int32)::String`
+`function getBufferType(Int16)::String`
+`function getFileHeader(Vector)::FileHeader`
+`function getWaveformHeader(Vector)::WaveformHeader`
+`function getWaveformDataHeader(Vector)::WaveformDataHeader`
+`function getWaveformDataPoints(Vector, WaveformDataHeader)::Vector`
+`function getWaveformData(Vector)::WaveformData`
 ## Public
-`{julia}function getWaveform(Vector)::Waveform`
-`{julia}function getWaveform(String)::Waveform`
-`{julia}function getWaveformProperties(Waveform)::DataFrame`
-`{julia}function getWaveformDataFrame(Waveform)::DataFrame`
+`function getWaveform(Vector)::Waveform`
+`function getWaveform(String)::Waveform`
+`function getWaveformProperties(Waveform)::DataFrame`
+`function getWaveformDataFrame(Waveform)::DataFrame`
 # Waveform Data Structure
 ```text
 header
