@@ -1,6 +1,6 @@
 module RigolBinaryParse
 
-export getWaveform, getWaveformDataFrame, getWaveformProperties, getUnits
+export getWaveform, getWaveformDataFrame, getWaveformProperties, getUnits, downsample
 
 using DataFrames
 
@@ -374,5 +374,33 @@ function getWaveformDataFrame(waveform::Waveform)::DataFrame
 
 end
 
+
+# Down Sampling Data
+
+function downsample(data::Vector, max_length::Int=5000)::Vector
+
+    increment::Int = ceil(length(data)/max_length)
+
+    return data[1:increment:length(data)]
+
+end
+
+function downsample(waveform::WaveformData, max_length::Int=5000)::Tuple{Vector,Vector}
+
+    return (downsample(waveform.x, max_length), downsample(waveform.y, max_length))
+
+end
+
+function downsample(waveform::Waveform, max_length::Int=5000)::Vector
+
+    result::Vector{Tuple{Vector,Vector}} = []
+
+    for i in eachindex(waveform.waveform)
+        push!(result, downsample(waveform.waveform[i], max_length))
+    end
+
+    return result
+
+end
 
 end
