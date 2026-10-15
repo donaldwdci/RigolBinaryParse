@@ -3,8 +3,11 @@
 [![Build Status](https://github.com/donaldwdci/RigolBinaryParse.jl/actions/workflows/CI.yml/badge.svg?branch=)](https://github.com/donaldwdci/RigolBinaryParse.jl/actions/workflows/CI.yml?query=branch%3A)
 
 Below is the documentation for using the RIGOL binary parse for Julia.
+
 # Data
+
 ## Private
+
 ```julia unfold:"fileHeader"
 struct FileHeader
 
@@ -15,6 +18,7 @@ struct FileHeader
 
 end
 ```
+
 ```julia unfold:"WaveformHeader"
 struct WaveformHeader
 
@@ -33,9 +37,10 @@ struct WaveformHeader
     time::String
     model::String
     channel_name::String
-    
+   
 end
 ```
+
 ```julia fold:"WaveformataHeader"
 struct WaveformDataHeader
 
@@ -43,30 +48,37 @@ struct WaveformDataHeader
     buffer_type::Int16
     bytes_per_point::Int16
     buffer_size::Int64
-    
+   
 end
 ```
+
 ```julia fold:"WaveformData"
 struct WaveformData
 
     data::Vector
     header::WaveformHeader
     dataHeader::WaveformDataHeader
-    
+   
 end
 ```
+
 ```julia fold:"Waveform"
 struct Waveform
 
     header::FileHeader
     waveform::Vector{WaveformData}
-    
+   
 end
 ```
+
 ## Public
+
 N/A
+
 # Functions
+
 ## Private
+
 ```julia
 function getUnits(Int32)::String
 function getWaveformType(Int32)::String
@@ -77,14 +89,18 @@ function getWaveformDataHeader(Vector)::WaveformDataHeader
 function getWaveformDataPoints(Vector, WaveformDataHeader)::Vector
 function getWaveformData(Vector)::WaveformData
 ```
+
 ## Public
+
 ```julia
 function getWaveform(Vector)::Waveform
 function getWaveform(String)::Waveform
 function getWaveformProperties(Waveform)::DataFrame
 function getWaveformDataFrame(Waveform)::DataFrame
 ```
+
 # Waveform Data Structure
+
 ```text
 header
     cookie
@@ -92,7 +108,7 @@ header
 	filesize
 	waveform_count
 waveform[]
-	data
+	data[]
 	header
 		header_size
 		waveform_type
@@ -115,15 +131,21 @@ waveform[]
 		bytes_per_point
 		buffer_size
 ```
+
 # Examples
+
 ```julia
-using .RigolBinaryParse
+using RigolBinaryParse
 
-file1 = "C:\\Users\\DonaldW\\Documents\\binarydata.bin"
+# locate bin file recorded from RIGOL oscilloscope
+bin_file = "C:\\TEMP\\RIGOL_BIN_FILE.bin"
 
-wave = getWaveform(file1)
+# get struct format for wave data and properties
+wave_struct = getWaveform(bin_file)
 
-data = getWaveformDataFrame(wave)
+# get datagrame format for data
+wave_dataframe = getWaveformDataFrame(wave_struct)
 
-specs = RigolBindayParse.getWaveformProperties(wave)
+# get dataframe format for properties
+wave_properties = getWaveformProperties(wave_struct)
 ```
