@@ -147,7 +147,7 @@ bin_file = "C:\\TEMP\\RIGOL_BIN_FILE.bin"
 wave_struct::Waveform = getWaveform(bin_file)
 
 
-# GECONVERTING TO DATA FRAMES
+# CONVERTING TO DATA FRAMES
 
 # get datagrame format for data
 wave_dataframe::DataFrame = getWaveformDataFrame(wave_struct)
