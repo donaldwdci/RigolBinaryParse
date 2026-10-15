@@ -117,7 +117,7 @@ waveform[]
 ```
 # Examples
 ```julia
-using .RIGOL
+using .RigolBinaryParse
 
 file1 = "C:\\Users\\DonaldW\\Documents\\binarydata.bin"
 
@@ -125,5 +125,5 @@ wave = getWaveform(file1)
 
 data = getWaveformDataFrame(wave)
 
-specs = RIGOL.getWaveformProperties(wave)
+specs = RigolBindayParse.getWaveformProperties(wave)
 ```
