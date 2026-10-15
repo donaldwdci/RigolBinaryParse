@@ -137,24 +137,33 @@ waveform[]
 ```julia
 using RigolBinaryParse
 
+
+# PARSING THE BIN FILE
+
 # locate bin file recorded from RIGOL oscilloscope
 bin_file = "C:\\TEMP\\RIGOL_BIN_FILE.bin"
 
 # get struct format for wave data and properties
-wave_struct = getWaveform(bin_file)
+wave_struct::Waveform = getWaveform(bin_file)
+
+
+# GECONVERTING TO DATA FRAMES
 
 # get datagrame format for data
-wave_dataframe = getWaveformDataFrame(wave_struct)
+wave_dataframe::DataFrame = getWaveformDataFrame(wave_struct)
 
 # get dataframe format for properties
-wave_properties = getWaveformProperties(wave_struct)
+wave_properties::DataFrame = getWaveformProperties(wave_struct)
+
+
+# EXTRACTING UNITS
 
 # get units of a specific channel and axis (outputs a string)
-getUnits(wave_struct.waveform[1].header.y_units)
+units::String = getUnits(wave_struct.waveform[1].header.y_units)
 
 # get units of a specific channel (outputs a tuple of strings)
-getUnits(wave_struct.waveform[1])
+units::Tuple{String, String} = getUnits(wave_struct.waveform[1])
 
 # get units for all channels (outputs a vector of tuples of strings)
-getUnits(wave_struct);
+units::Vector{Tuple{String, String}} = getUnits(wave_struct);
 ```
