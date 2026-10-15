@@ -1,0 +1,10 @@
+# This file is machine-generated - editing it directly is not advised
+
+julia_version = "1.12.6"
+manifest_format = "2.0"
+project_hash = "8d32ed171ceee4afab9cac5d6aeb275240dc30d9"
+
+[[deps.RigolBinaryParse]]
+path = "."
+uuid = "bb17f81d-3dec-4093-8676-49f7e3ce67a6"
+version = "1.0.0-DEV"
