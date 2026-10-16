@@ -413,7 +413,12 @@ function plot(wave::WaveformData)::Plots.Plot
     (x, y) = downsample(wave)
     (x_units, y_units) = getUnits(wave)
 
-    return Plots.plot(x, y, title=wave.header.channel_name, xlabel=x_units, ylabel=y_units)
+    maxVal = maximum(y)
+    minVal = minimum(y)
+    rng = abs(maxVal-minVal)
+    ylims = (minVal-(rng/2.0), maxVal+(rng/2.0))
+
+    return Plots.plot(x, y, title=wave.header.channel_name, xlabel=x_units, ylabel=y_units, ylims=ylims)
 
 end
 
