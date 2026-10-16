@@ -1,6 +1,6 @@
 module RigolBinaryParse
 
-export getWaveform, getWaveformDataFrame, getWaveformProperties, getUnits, downsample, plot
+export getWaveform, getWaveformDataFrame, getWaveformProperties, getUnits, downsample, plotWave, cropWave
 
 using DataFrames
 using Plots
@@ -376,6 +376,18 @@ function getWaveformDataFrame(waveform::Waveform)::DataFrame
 end
 
 
+# Selecting a time range of data
+
+function cropWave(wave::WaveformData, start_time, end_time)
+
+    start_index::Int = ceil(start_time/wave.header.x_increment + wave.header.x_origin/wave.header.x_increment)
+    end_index::Int = ceil(end_time/wave.header.x_increment + wave.header.x_origin/wave.header.x_increment)
+
+    return (wave.x[start_index:end_index], wave.y[start_index:end_index])
+
+end
+
+
 # Down Sampling Data
 
 function downsample(data::Vector, max_length::Int=5000)::Vector
@@ -408,7 +420,7 @@ end
 
 # Basic Quick Plots
 
-function plot(wave::WaveformData)::Plots.Plot
+function plotWave(wave::WaveformData)::Plots.Plot
 
     (x, y) = downsample(wave)
     (x_units, y_units) = getUnits(wave)
@@ -422,13 +434,13 @@ function plot(wave::WaveformData)::Plots.Plot
 
 end
 
-function plot(wave::Waveform)::Plots.Plot
+function plotWave(wave::Waveform)::Plots.Plot
 
     plt::Vector{Plots.Plot}=[]
 
     for i in eachindex(wave.waveform)
 
-        push!(plt, plot(wave.waveform[i]))
+        push!(plt, plotWave(wave.waveform[i]))
 
     end
 
